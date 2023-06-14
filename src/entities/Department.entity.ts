@@ -9,7 +9,7 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { Employee } from './Employee.entity';
-import { JobHistory } from './job_history.entity';
+import { JobHistory } from './Job_history.entity';
 import { Location } from './Locations.entity';
 
 @Entity({ schema: 'hr', name: 'departments' })

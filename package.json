@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "seed": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/dist/cli/index.js seed",
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -28,6 +29,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "^8.7.0",
     "@liaoliaots/nestjs-redis": "^9.0.5",
+    "@nestjs/axios": "^2.0.0",
     "@nestjs/cache-manager": "^1.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^2.3.1",
@@ -46,13 +48,15 @@
     "@types/passport-jwt": "^3.0.8",
     "@types/passport-local": "^1.0.35",
     "aws-sdk": "^2.1367.0",
-    "axios": "^1.3.6",
+    "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "cache-manager": "^5.2.1",
     "cache-manager-redis-store": "^3.0.1",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "cookie-parser": "^1.4.6",
+    "dotenv": "^16.1.4",
+    "fast-xml-parser": "^4.2.4",
     "ioredis": "^5.3.2",
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.2.3",
@@ -67,9 +71,11 @@
     "socket.io": "^4.6.1",
     "socket.io-redis": "^6.1.1",
     "typeorm": "^0.3.15",
+    "typeorm-extension": "^2.8.1",
     "typeorm-naming-strategies": "^4.1.0",
     "uuid": "^9.0.0",
-    "uuidv4": "^6.2.13"
+    "uuidv4": "^6.2.13",
+    "xml2js": "^0.6.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^9.0.0",

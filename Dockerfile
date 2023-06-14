@@ -27,10 +27,5 @@ COPY --from=builder /app ./
 # 3000번 포트 열음
 EXPOSE 3000
 
-# Add your terminal commands here
-RUN apt-get update -y
-RUN apt-get install -y redis-server
-RUN redis-server --daemonize yes
-
 # npm run start:prod
 CMD ["npm" , "run" ,"start:prod"]

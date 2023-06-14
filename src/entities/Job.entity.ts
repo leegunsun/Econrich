@@ -8,8 +8,8 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Employee } from './employee.entity';
-import { JobHistory } from './job_history.entity';
+import { Employee } from './Employee.entity';
+import { JobHistory } from './Job_history.entity';
 
 @Entity({ schema: 'hr', name: 'jobs' })
 export class Job {

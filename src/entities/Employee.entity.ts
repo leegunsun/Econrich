@@ -8,9 +8,9 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
-import { Job } from './job.entity';
+import { Job } from './Job.entity';
 import { Department } from './Department.entity';
-import { JobHistory } from './job_history.entity';
+import { JobHistory } from './Job_history.entity';
 
 @Entity({ schema: 'hr', name: 'employees' })
 export class Employee {
