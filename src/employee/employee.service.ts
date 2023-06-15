@@ -4,6 +4,7 @@ import { Employee } from '../entities/Employee.entity';
 import { JobHistory } from '../entities/Job_history.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { Job } from '../entities/Job.entity';
 
 @Injectable()
 export class EmployeeService {
@@ -11,7 +12,9 @@ export class EmployeeService {
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
     @InjectRepository(JobHistory)
-    private jobHistory: Repository<JobHistory>,
+    private jobHistoryRepository: Repository<JobHistory>,
+    @InjectRepository(Job)
+    private jobRepository: Repository<Job>,
   ) {}
 
   /**
@@ -28,15 +31,18 @@ export class EmployeeService {
     const FindOneData: Employee = await this.employeeRepository
       .createQueryBuilder('e')
       .where('e.employee_id = :employee_id', { employee_id })
+      .leftJoin(Job, 'j', 'j.job_id = e.job_id')
       .select([
-        'first_name',
-        'last_name',
-        'email',
-        'phone_number',
-        'hire_date',
-        'job_id',
-        'salary',
-        'commission_pct',
+        'e.first_name as first_name',
+        'e.last_name as last_name',
+        'e.email as email',
+        'e.phone_number as phone_number',
+        'e.hire_date as hire_date',
+        'e.salary as salary',
+        'e.commission_pct as commission_pct',
+        'j.job_title as job_title',
+        'j.min_salary as min_salary',
+        'j.max_salary as max_salary',
       ])
       .getRawOne();
 
@@ -60,10 +66,17 @@ export class EmployeeService {
   ): Promise<JobHistory> {
     const { employee_id }: FindOneEmployeeDTO = FindOneEmployeeDTO;
 
-    const FindOneData: JobHistory = await this.jobHistory
-      .createQueryBuilder('j')
-      .where('j.employee_id = :employee_id', { employee_id })
-      .select(['start_date', 'end_date', 'job_id'])
+    const FindOneData: JobHistory = await this.jobHistoryRepository
+      .createQueryBuilder('jh')
+      .where('jh.employee_id = :employee_id', { employee_id })
+      .leftJoin(Job, 'j', 'j.job_id = jh.job_id')
+      .select([
+        'jh.start_date as start_date',
+        'jh.end_date as end_date',
+        'j.job_title as job_title',
+        'j.min_salary as min_salary',
+        'j.max_salary as max_salary',
+      ])
       .getRawOne();
 
     if (!FindOneData) {
